@@ -50,8 +50,17 @@ jobs:
         run: dotnet restore
         
       - name: Begin SonarCloud analysis
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          dotnet-sonarscanner begin /k:"coda-school_cahier-de-vacances-b3" /o:"coda-school" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.cs.vstest.reportsPaths="**/*.trx" /d:sonar.sources="./proposed-solution/week08/api" /d:sonar.cs.analyzer.projectOutPaths="./proposed-solution/week08/api/**/bin" /d:sonar.verbose=true
+          dotnet-sonarscanner begin \
+            /k:"coda-school_cahier-de-vacances-b3" \
+            /o:"coda-school" \
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" \
+            /d:sonar.cs.vstest.reportsPaths="**/*.trx"
       
       - name: Build
         run: dotnet build --no-restore --configuration Release
@@ -60,9 +69,10 @@ jobs:
         run: dotnet test --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage;Format=opencover" --logger trx --results-directory ./TestResults/
         
       - name: End SonarCloud analysis
-        run: dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: Publish backend
         run: dotnet publish -c Release --property:PublishDir=publish
@@ -77,8 +87,8 @@ jobs:
     runs-on: windows-latest
     needs: build
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
       - name: Download artifact from build job
