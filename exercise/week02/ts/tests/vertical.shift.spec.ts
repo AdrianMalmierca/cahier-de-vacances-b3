@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import {Vertical} from "../src/shift/vertical";
+import { Vertical } from "../src/shift/vertical";
 import * as path from "node:path";
 
 describe('Vertical Shift', () => {
