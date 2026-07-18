@@ -3,7 +3,9 @@ package game;
 public enum Choice {
     ROCK("🪨"),
     PAPER("📄"),
-    SCISSORS("✂️");
+    SCISSORS("✂️"),
+    LIZARD("🦎"),
+    SPOCK("🖖");
 
     private final String symbol;
 

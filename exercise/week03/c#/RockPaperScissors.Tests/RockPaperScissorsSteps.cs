@@ -37,6 +37,8 @@ namespace RockPaperScissors.Tests
                 "🪨" => Choice.Rock,
                 "📄" => Choice.Paper,
                 "✂️" => Choice.Scissors,
+                "🦎" => Choice.Lizard,
+                "🖖" => Choice.Spock,
                 _ => throw new ArgumentException("Invalid choice")
             };
 

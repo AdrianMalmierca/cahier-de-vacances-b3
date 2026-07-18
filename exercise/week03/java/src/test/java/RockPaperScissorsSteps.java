@@ -37,6 +37,8 @@ public class RockPaperScissorsSteps {
             case "🪨" -> Choice.ROCK;
             case "📄" -> Choice.PAPER;
             case "✂️" -> Choice.SCISSORS;
+            case "🦎" -> Choice.LIZARD;
+            case "🖖" -> Choice.SPOCK;
             default -> throw new IllegalArgumentException("Invalid choice");
         };
     }
