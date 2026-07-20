@@ -1,9 +1,9 @@
-namespace Construct;
+/*namespace Construct;
 
 public class ConstructInventory(Artefact[] artefacts)
 {
     public void UpdateSimulation()
-    {
+    { //simulation of the passing of one day in the construct's inventory
         for (int i = 0; i < artefacts.Length; i++)
         {
             var artefact = artefacts[i];
@@ -13,7 +13,7 @@ public class ConstructInventory(Artefact[] artefacts)
             {
                 if (artefact.Integrity > 0)
                 {
-                    if (artefact.Name != "Sulfuras Core Fragment")
+                    if (artefact.Name != "Sulfuras Core Fragment") //objects of this type never lose integrity, nor ttl
                     {
                         artefact.Integrity--;
                     }
@@ -22,7 +22,7 @@ public class ConstructInventory(Artefact[] artefacts)
             else
             {
                 if (artefact.Integrity < 50)
-                {
+                { //if is Aged Signal or Backdoor Pass to TAFKAL80ETC Protocol, increase integrity
                     artefact.Integrity++;
 
                     if (artefact.Name == "Backdoor Pass to TAFKAL80ETC Protocol")
@@ -55,11 +55,11 @@ public class ConstructInventory(Artefact[] artefacts)
                         {
                             if (artefact.Name != "Sulfuras Core Fragment")
                             {
-                                artefact.Integrity--;
+                                artefact.Integrity--; //lose 2 if is <0, one already lost in the previous step
                             }
                         }
                     }
-                    else
+                    else //Backdoor lose all integrity if ttl <0
                     {
                         artefact.Integrity = 0;
                     }
@@ -72,6 +72,19 @@ public class ConstructInventory(Artefact[] artefacts)
                     }
                 }
             }
+        }
+    }
+}*/
+
+namespace Construct;
+
+public class ConstructInventory(Artefact[] artefacts)
+{
+    public void UpdateSimulation()
+    {
+        foreach (var artefact in artefacts)
+        {
+            ArtefactUpdaterFactory.For(artefact.Name).Update(artefact);
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Artefact } from "./artefact";
+/*import { Artefact } from "./artefact";
 
 export class ConstructInventory {
     private artefacts: Artefact[];
@@ -50,6 +50,27 @@ export class ConstructInventory {
                     }
                 }
             }
+        }
+    }
+
+    getArtefacts(): Artefact[] {
+        return this.artefacts;
+    }
+}*/
+
+import { Artefact } from "./artefact";
+import { updaterFor } from "./artefactUpdaterFactory";
+
+export class ConstructInventory {
+    private artefacts: Artefact[];
+
+    constructor(artefacts: Artefact[]) {
+        this.artefacts = artefacts;
+    }
+
+    updateSimulation(): void {
+        for (const artefact of this.artefacts) {
+            updaterFor(artefact.name).update(artefact);
         }
     }
 

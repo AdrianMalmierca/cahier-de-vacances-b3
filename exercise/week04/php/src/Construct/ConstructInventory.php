@@ -1,11 +1,12 @@
 <?php
 
-namespace Construct;
+//namespace Construct;
 
-class ConstructInventory
-{
-    /** @var Artefact[] */
-    private array $artefacts;
+//class ConstructInventory
+//{
+    
+    ///** @var Artefact[] */
+    /*private array $artefacts;
 
     public function __construct(array $artefacts)
     {
@@ -54,6 +55,32 @@ class ConstructInventory
                     $artefact->integrity++;
                 }
             }
+        }
+    }
+
+    public function getArtefacts(): array
+    {
+        return $this->artefacts;
+    }
+}
+*/  
+
+namespace Construct;
+
+class ConstructInventory
+{
+    /** @var Artefact[] */
+    private array $artefacts;
+
+    public function __construct(array $artefacts)
+    {
+        $this->artefacts = $artefacts;
+    }
+
+    public function updateSimulation(): void
+    {
+        foreach ($this->artefacts as $artefact) {
+            ArtefactUpdaterFactory::forArtefact($artefact->name)->update($artefact);
         }
     }
 

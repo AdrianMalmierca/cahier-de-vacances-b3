@@ -1,4 +1,4 @@
-package construct;
+/*package construct;
 
 class ConstructInventory {
     Artefact[] artefacts;
@@ -59,6 +59,23 @@ class ConstructInventory {
                     }
                 }
             }
+        }
+    }
+}
+*/
+
+package construct;
+
+public class ConstructInventory {
+    Artefact[] artefacts;
+
+    public ConstructInventory(Artefact[] artefacts) {
+        this.artefacts = artefacts;
+    }
+
+    public void updateSimulation() {
+        for (Artefact artefact : artefacts) {
+            ArtefactUpdaterFactory.forArtefact(artefact.name).update(artefact);
         }
     }
 }
