@@ -1,0 +1,7 @@
+Backend: 
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week07/server"
+npm run dev
+
+Frontend: 
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week05"
+npm run dev
