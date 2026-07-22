@@ -10,7 +10,7 @@ export interface ValidationResult {
     ruleResults: RuleResult[];
 }
 
-const API_URL = "http://localhost:3001/api/password-check";
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3001/api/password-check";
 const TIMEOUT_MS = 5000;
 
 export type CheckOutcome =
