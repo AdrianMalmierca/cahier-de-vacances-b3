@@ -5,7 +5,7 @@ import path from "path";
 const DB_PATH =
     process.env.NODE_ENV === "test"
         ? ":memory:" //test do a db in memory, not the real
-        : path.join(__dirname, "../../zion-matrix.db");
+        : process.env.DB_PATH ?? path.join(__dirname, "../../zion-matrix.db");
 
 export const db = new Database(DB_PATH);
 
