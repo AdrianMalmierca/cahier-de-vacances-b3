@@ -1,11 +1,16 @@
 import Database from "better-sqlite3";
 import path from "path";
+import fs from "fs";
 
 //__dirname is the actual directory of the file
 const DB_PATH =
     process.env.NODE_ENV === "test"
         ? ":memory:" //test do a db in memory, not the real
         : process.env.DB_PATH ?? path.join(__dirname, "../../zion-matrix.db");
+
+if (DB_PATH !== ":memory:") {
+    fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
+}
 
 export const db = new Database(DB_PATH);
 
