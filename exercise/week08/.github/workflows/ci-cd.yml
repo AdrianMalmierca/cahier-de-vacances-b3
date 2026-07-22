@@ -1,0 +1,80 @@
+name: Zion CI/CD Pipeline #workflow name
+
+on: #when is executed
+  push:
+    branches: [main] #when push on main
+  pull_request:
+    branches: [main] #or to open or update pull request to main
+
+jobs:
+  frontend:
+    name: Frontend — Lint, Test, Build
+    runs-on: ubuntu-latest ##virtual machine
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 #download the repository
+
+      - name: Setup Node
+        uses: actions/setup-node@v4 #use the official action
+        with: #parameteres of the action
+          node-version: 20
+          cache: npm #active the cache of npm
+          cache-dependency-path: frontend/package-lock.json #to know when invalidate the cache
+
+      - name: Install dependencies
+        run: npm ci #install the versions of the package-lock.json
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test -- --coverage #run tests and create coverture
+
+      - name: Build
+        run: npm run build #execute build script
+
+      - name: Upload coverage #upload the coverage inform
+        uses: codecov/codecov-action@v4 #official action of Codecov
+        with:
+          directory: ./frontend/coverage #where is the directory of the coverage
+          flags: frontend #to say that coverage is frontend
+        continue-on-error: true #if the upload fails, the workflow continues
+
+  backend:
+    name: Backend — Lint, Test, Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test -- --coverage
+
+      - name: Build (compile TypeScript)
+        run: npm run build
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          directory: ./server/coverage
+          flags: backend
+        continue-on-error: true

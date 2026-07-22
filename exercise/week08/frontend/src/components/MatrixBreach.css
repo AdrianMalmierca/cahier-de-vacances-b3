@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+.breach-console {
+    --bg: #0a0e0a;
+    --surface: #10160f;
+    --border: #1f2e1c;
+    --green: #39ff88;
+    --green-dim: #7fffb2;
+    --green-muted: #4a6b52;
+    --red: #ff3860;
+    --red-glow: rgba(255, 56, 96, 0.35);
+
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    color: var(--green-dim);
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.breach-console--granted {
+    border-color: var(--green);
+    box-shadow: 0 0 24px rgba(57, 255, 136, 0.25);
+}
+
+.breach-console__scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(57, 255, 136, 0.03) 0px,
+        rgba(57, 255, 136, 0.03) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    opacity: 0.5;
+}
+
+.breach-console__eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green-muted);
+    margin: 0 0 0.5rem;
+}
+
+.breach-console__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--green);
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.02em;
+}
+
+.breach-console__subtitle {
+    font-size: 0.85rem;
+    color: var(--green-muted);
+    line-height: 1.5;
+    margin: 0 0 2rem;
+}
+
+.breach-console__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.breach-console__label {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green-muted);
+}
+
+.breach-console__input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.75rem 1rem;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--green);
+    letter-spacing: 0.05em;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.breach-console__input:focus-visible {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(57, 255, 136, 0.2);
+}
+
+.breach-console__input--trace {
+    border-color: var(--red);
+    animation: trace-pulse 0.4s ease-in-out;
+}
+
+@keyframes trace-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--red-glow); }
+    50% { box-shadow: 0 0 0 6px var(--red-glow); }
+}
+
+.breach-console__status {
+    min-height: 1.2rem;
+    font-size: 0.8rem;
+    color: var(--red);
+    margin: 0 0 1.5rem;
+}
+
+.breach-console--granted .breach-console__status {
+    color: var(--green);
+    font-weight: 700;
+}
+
+.breach-console__rules {
+    list-style: none;
+    margin: 0;
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.breach-console__rule {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--green-muted);
+    transition: color 0.2s ease;
+}
+
+.breach-console__rule--pass {
+    color: var(--green);
+}
+
+.breach-console__rule--fail {
+    color: var(--red);
+}
+
+.breach-console__rule-marker {
+    width: 1em;
+    font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .breach-console,
+    .breach-console__input,
+    .breach-console__rule {
+        transition: none;
+    }
+    .breach-console__input--trace {
+        animation: none;
+    }
+}
+
+.breach-console__input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.breach-console__spinner {
+    position: absolute;
+    right: 0.9rem;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--border);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .breach-console__spinner {
+        animation: none;
+        border-top-color: var(--green);
+        opacity: 0.6;
+    }
+}
