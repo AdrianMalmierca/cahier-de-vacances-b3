@@ -1,0 +1,21 @@
+C#:
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week02/c#"
+dotnet test --logger "console;verbosity=detailed"
+
+Java:
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week02/java"
+mvn test
+
+PHP:
+1. First install composer:
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week02/php"
+composer install
+3. User the binnary file to install
+/usr/local/Cellar/php@8.3/8.3.32/bin/php $(which composer) install
+
+./vendor/bin/pest
+
+TS:
+npm install
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week02/ts"
+npx jest --verbose

@@ -1,0 +1,22 @@
+C#:
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week01/c#"
+dotnet test
+dotnet test --logger "console;verbosity=detailed" #to see more information
+
+Java:
+mvn test #maven
+./gradlew test #gradle
+
+PHP:
+1. First install composer:
+brew install composer
+2. Install PHP 8.3:
+brew install php@8.3
+3. User the binnary file to install
+/usr/local/Cellar/php@8.3/8.3.32/bin/php $(which composer) install
+
+./vendor/bin/pest
+
+TS:
+npx jest
+npx jest --verbose #to see more information

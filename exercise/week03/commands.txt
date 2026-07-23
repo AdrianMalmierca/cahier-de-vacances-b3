@@ -1,0 +1,18 @@
+C#:
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week03/c#"
+dotnet test --logger "console;verbosity=detailed"
+
+Java:
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week03/java"
+mvn test
+
+PHP:
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week03/php"
+composer install
+/usr/local/Cellar/php@8.3/8.3.32/bin/php $(which composer) install
+/usr/local/Cellar/php@8.3/8.3.32/bin/php ./vendor/bin/behat
+
+TS:
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week03/ts"
+npm install
+npx cucumber-js

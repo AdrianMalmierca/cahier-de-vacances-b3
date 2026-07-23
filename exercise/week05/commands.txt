@@ -1,0 +1,9 @@
+1. Initializes project with Vite con React + TypeScript
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week05"
+npm create vite@latest . -- --template react-ts
+
+2. Install dependencies
+npm install
+
+3. Run
+npm run dev

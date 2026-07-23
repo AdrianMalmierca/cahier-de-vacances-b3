@@ -1,0 +1,18 @@
+Down:
+1. SQLITE: A lightweight, embedded SQL database engine used for local storage in applications
+2. BOYSCOUTRULE (The Boy Scout Rule): A principle encouraging developer to always leave the code cleaner than they found it
+4. REST: An architectural style for designing networked applications using stateless communication and standard HTTP methods
+6. READABILITY: The ease with which a reader can understand code, essential for maintainability
+7. ACCESSIBILITY: Designing software that can be used by people with a wide range of abilities and disabilities
+9. COVERAGE: A metric that shows the percentage of code executed by tests
+11. APPROVALTESTING: A testing technique that compares output of code to a previously approved version to detect regressions
+14. LEGACYCODE: Code inherited from an older version of the system, often lacking tests and difficult to change safely
+
+Across:
+3. CONTINUOUSINTEGRATION: A practice in which developer frequently integratee code into a shared repository, verified by automated build and tests
+5. REFACTORING: Improving the strcuture of existing code without chaning its behaviour
+8. OPENCLOSEDPRINCIPLE: A design principle stating that software enxwtities should be open for extension but closed for modification
+10. BEHAVIOR: The "B" in BDD, referring to the observable actions or outcomes expected from the system 
+12. PIPELINE: An automated series of steps for building, testing and deploying code
+13. UNITTESTING:  A technique where individual units of code are tested in isolation to ensure they work as intended
+15. LINTER: A tool that analyzes code for stylistic or programming errors according to defined rules

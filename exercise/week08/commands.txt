@@ -1,0 +1,130 @@
+#CONSOLIDATE FRONTEND INTO WEEK08
+
+#Copy React components (MatrixBreach.tsx, .css) from week 5 into the new week 8 project
+cp -r "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week05/src/components" \
+      "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/frontend/src/"
+
+#Copy the API connection logic (passwordApi.ts) from week 5
+cp -r "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week05/src/validation" \
+      "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/frontend/src/"
+
+#Copy App.tsx, which already renders MatrixBreach
+cp "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week05/src/App.tsx" \
+   "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/frontend/src/App.tsx"
+
+
+#CONSOLIDATE BACKEND INTO WEEK08
+
+#Create the folder for the new week 8 server project
+mkdir -p "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/server"
+
+#Move into that folder
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/server"
+
+#Copy all backend source code (dynamic rules, logging, DB, index) from week 7
+cp -r "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week07/server/src" \
+      "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/server/"
+
+#Copy week 7's package.json (dependencies and scripts)
+cp "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week07/server/package.json" \
+   "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/server/"
+
+#Copy week 7's tsconfig.json
+cp "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week07/server/tsconfig.json" \
+   "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/server/"
+
+#Enter the now-consolidated server project
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/server"
+
+#Install all dependencies declared in package.json
+npm install
+
+#Start the server in dev mode (auto-reload via tsx watch)
+npm run dev
+
+
+#BACKEND LINTING
+
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/server"
+
+#Install oxlint as a dev dependency (same linter already used by the frontend)
+npm install --save-dev oxlint
+
+#Run the linter against the backend code
+npm run lint
+
+
+#FRONTEND TESTS
+
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/frontend"
+
+#Install Vitest + React Testing Library + jest-dom + user-event + jsdom (simulated DOM environment for tests)
+npm install --save-dev vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
+
+#Run the frontend test suite
+npm run test
+
+
+#BACKEND TESTS
+
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/server"
+
+#Install Vitest + supertest (to test the Express endpoint without spinning up a real server)
+npm install --save-dev vitest supertest @types/supertest
+
+#Run the backend test suite
+npm run test
+
+
+#DEPLOYMENT — RENDER (backend)
+#Render has no CLI: the repo is connected via its web dashboard (render.com → New → Web Service),
+#manually configuring:
+#  Root Directory: exercise/week08/server
+#  Build Command:  npm install && npm run build
+#  Start Command:  npm start
+#No terminal command was used for the deployment itself — only Render's web UI,
+#which auto-redeploys on every push to the connected branch.
+
+#Manual test of the already-deployed Render endpoint, to confirm it responds
+curl -X POST https://cahier-de-vacances-b3.onrender.com/api/password-check \
+  -H "Content-Type: application/json" \
+  -d '{"password":"Abc123@#"}'
+
+
+#DEPLOYMENT — VERCEL (frontend)
+
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week08/frontend"
+
+#Install the Vercel CLI globally on the system
+npm install -g vercel
+
+#Log in to the Vercel account from the terminal
+vercel login
+
+#Link this folder to a Vercel project (creates a new one if none exists; interactive wizard)
+vercel
+
+#Add an environment variable (VITE_API_URL) to the project's production environment
+vercel env add VITE_API_URL production
+
+#List the project's configured environment variables, to verify it was saved correctly
+vercel env ls
+
+#Download the production environment variables to a local file, to inspect them directly
+vercel env pull .env.production.local --environment=production
+
+#Deploy the project to production (first attempt)
+vercel --prod
+
+#Deploy to production forcing a clean build, ignoring any previous cache
+vercel --prod --force
+
+
+#VERIFY THE DEPLOYED BUNDLE
+
+#Extract the name of the main JS file served by the live site (changes with every build)
+curl -s https://zion-breach-frontend.vercel.app/ | grep -o 'assets/index-[a-zA-Z0-9]*\.js'
+
+#Search inside that bundle for which API URL got compiled in (to confirm it points to Render, not localhost)
+curl -s https://zion-breach-frontend.vercel.app/assets/NOMBRE_DEL_ARCHIVO.js \
+  | grep -o "http[s]*://[a-zA-Z0-9./:-]*password-check"

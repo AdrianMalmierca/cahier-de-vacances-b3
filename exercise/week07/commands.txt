@@ -1,5 +1,11 @@
+Install dependencies:
+cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week07/server"
+npm install better-sqlite3
+npm install --save-dev @types/better-sqlite3
+
 Backend: 
 cd "/Users/administrador/Documents/Coda/cahier-de-vacances-b3/exercise/week07/server"
+npm install
 npm run dev
 
 Frontend: 
